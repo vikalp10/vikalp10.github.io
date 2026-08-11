@@ -1,0 +1,68 @@
+{
+  "symbol" : "VKLP",
+  "name" : "Vikalp Shandilya · Backend & Platform Engineering",
+  "last" : 120.0,
+  "prevClose" : 111.7,
+  "open" : 112.0,
+  "dayHigh" : 120.0,
+  "dayLow" : 111.7,
+  "allTimeHigh" : 120.0,
+  "yearLow" : 40.0,
+  "volume" : 500000,
+  "currency" : "USD",
+  "session" : "OPEN",
+  "exchange" : "GTX · BENGALURU",
+  "seed" : 120500,
+  "drift" : 4.2E-4,
+  "volatility" : 0.0021,
+  "stats" : [ {
+    "label" : "ANNUAL SAVINGS",
+    "prefix" : "$",
+    "value" : 120.0,
+    "decimals" : 0,
+    "suffix" : "K",
+    "note" : "MySQL→PostgreSQL migration"
+  }, {
+    "label" : "RECORDS / DAY",
+    "prefix" : "",
+    "value" : 500.0,
+    "decimals" : 0,
+    "suffix" : "K+",
+    "note" : "ETL framework, 15+ vendors"
+  }, {
+    "label" : "PIPELINE UPTIME",
+    "prefix" : "",
+    "value" : 99.9,
+    "decimals" : 1,
+    "suffix" : "%",
+    "note" : "AWS Step Functions SLA"
+  }, {
+    "label" : "FASTER QUERIES",
+    "prefix" : "",
+    "value" : 40.0,
+    "decimals" : 0,
+    "suffix" : "%",
+    "note" : "post-migration"
+  }, {
+    "label" : "FASTER ONBOARDING",
+    "prefix" : "",
+    "value" : 85.0,
+    "decimals" : 0,
+    "suffix" : "%",
+    "note" : "7 days → 1 day"
+  }, {
+    "label" : "VULNS REMEDIATED",
+    "prefix" : "",
+    "value" : 120.0,
+    "decimals" : 0,
+    "suffix" : "+",
+    "note" : "22 repositories"
+  }, {
+    "label" : "LOWER API LATENCY",
+    "prefix" : "",
+    "value" : 35.0,
+    "decimals" : 0,
+    "suffix" : "%",
+    "note" : "Kafka event-driven redesign"
+  } ]
+}

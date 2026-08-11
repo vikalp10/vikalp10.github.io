@@ -1,0 +1,33 @@
+[ {
+  "period" : "JUL'23—NOW",
+  "side" : "BUY",
+  "desk" : "JP MORGAN CHASE",
+  "role" : "Software Engineer II",
+  "fills" : [ "Leading an automated feed-onboarding platform — pulls feed specs straight from Jira, bounces incomplete requests back to product owners with the exact missing fields, then runs onboarding end to end (Java entity generation → DB table creation → ticket close) through a configurable self-service UI", "Building its monitoring layer: consumers register a data contract, the system scans feeds, reads the logs of failing ones, explains root cause and hands the on-call a recommended action plan without ever touching prod data — SLA-breach risk raises an incident and alerts consumers automatically", "Zero-downtime MySQL→PostgreSQL migration: 50+ tables, 2TB+, 5 teams, dual-write plus shadow-read — $120K/yr saved, 40% faster queries, adopted as the org-wide playbook", "MCP server (JPMC hackathon) where LLM agents vet datasets against configurable data-quality templates and raise rule alerts — running in production with the Data Quality team, replacing manual review", "Self-improving AI agent (3 skills, Moderne CLI) for Spring Boot 2.x→4.x upgrades — 120+ vulnerabilities remediated across 22 repositories", "Python/Java ETL framework at 500K+ records/day (8GB, peaking at 200 rec/sec) across 15+ vendors — onboarding cut from 7 days to 1 (85%), serving 3 teams on AWS Step Functions (Lambda / Glue / S3) at a 99.9% SLA", "Event-driven Spring Boot + Kafka backbone — 8 topics, 3 consumer groups, 50K+ events/day, 35% lower API latency", "Multi-account AWS provisioned with Terraform, plus Spinnaker blue-green CI/CD adopted across 4 teams", "15+ production incidents resolved; the runbooks that came out of them cut recurrence 50%" ],
+  "pnl" : "+$120K SAVED",
+  "direction" : "UP"
+}, {
+  "period" : "JAN'23—JUL'23",
+  "side" : "BUY",
+  "desk" : "JP MORGAN CHASE",
+  "role" : "SEP Intern",
+  "fills" : [ "Led the Java 8→17 migration across 12 microservices — 30% less boilerplate, 25% faster startup, and 3 deprecated security libraries flagged in compliance removed", "Python automation to reconcile vendor file backlogs — 80% less manual reconciliation" ],
+  "pnl" : "−25% STARTUP",
+  "direction" : "UP"
+}, {
+  "period" : "JUN'22—JUL'22",
+  "side" : "BUY",
+  "desk" : "JP MORGAN CHASE",
+  "role" : "Summer Analyst Intern",
+  "fills" : [ "Full-stack maker-checker application (Spring Boot + Angular) with a dual-authorization workflow, REST APIs and Swagger documentation", "Integration time down 50%, 85% test coverage" ],
+  "pnl" : "−50% INTEGRATION",
+  "direction" : "UP"
+}, {
+  "period" : "2019—2023",
+  "side" : "IPO",
+  "desk" : "THAPAR INSTITUTE",
+  "role" : "BE Computer Science",
+  "fills" : [ "CGPA 8.3/10", "Merit Scholarship — top 10% of cohort" ],
+  "pnl" : "GPA 8.3",
+  "direction" : "FLAT"
+} ]

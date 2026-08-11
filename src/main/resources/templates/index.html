@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="|${profile.ticker} — ${profile.name} · ${profile.role}|">VKLP — Vikalp Shandilya</title>
+
+    <meta name="description"
+          content="Vikalp Shandilya (VKLP) — Software Engineer II at JP Morgan Chase, Bengaluru. Backend and data-platform engineering: Java, Spring Boot, Kafka, AWS. $120K annual savings, 500K+ records/day, 99.9% uptime. Rated STRONG BUY.">
+    <meta name="author" th:content="${profile.name}">
+    <meta name="theme-color" content="#050705">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="VKLP TERMINAL">
+    <meta property="og:title"
+          th:content="|${profile.ticker} · ${profile.name} — ${profile.rating}|">
+    <meta property="og:description"
+          content="A trading terminal where the security is a backend engineer. Software Engineer II at JP Morgan Chase — Java, Spring Boot, Kafka, AWS. Market is open.">
+    <meta property="og:url" content="https://vikalp10.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" th:content="|${profile.ticker} · ${profile.name}|">
+    <meta name="twitter:description"
+          content="A trading terminal where the security is a backend engineer. Rated STRONG BUY. Market is open.">
+
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://vikalp10.github.io">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="./css/terminal.css">
+</head>
+
+<body>
+<div class="crt" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<a class="skip" href="#p0">Skip to content</a>
+
+<!-- ══════════════════════════════════ BOOT ══════════════════════════════════ -->
+<div id="boot" class="boot" role="status" aria-label="Terminal boot sequence">
+    <div class="boot-inner">
+        <pre class="boot-logo" aria-hidden="true">
+ ██╗   ██╗██╗  ██╗██╗     ██████╗
+ ██║   ██║██║ ██╔╝██║     ██╔══██╗
+ ██║   ██║█████╔╝ ██║     ██████╔╝
+ ╚██╗ ██╔╝██║╚██╗ ██║     ██╔═══╝
+  ╚████╔╝ ██║ ╚██╗███████╗██║
+   ╚═══╝  ╚═╝  ╚═╝╚══════╝╚═╝</pre>
+        <div id="boot-log" class="boot-log"></div>
+        <div class="boot-skip">[ PRESS ANY KEY OR CLICK TO SKIP ]</div>
+    </div>
+</div>
+
+<!-- ═════════════════════════════════ HEADER ═════════════════════════════════ -->
+<header class="hdr" id="hdr">
+    <div class="hdr-main">
+        <div class="hdr-sym">
+            <span class="live" aria-label="Live"><i class="live-dot"></i>LIVE</span>
+            <span class="sym" th:text="${profile.ticker}">VKLP</span>
+            <span class="sym-sub" th:text="${profile.name}">Vikalp Shandilya</span>
+        </div>
+
+        <div class="hdr-px" id="hdr-quote"
+             th:data-last="${quote.last}"
+             th:data-prev="${quote.prevClose}"
+             th:data-seed="${quote.seed}"
+             th:data-drift="${quote.drift}"
+             th:data-vol="${quote.volatility}">
+            <span class="px" id="px" th:text="${#numbers.formatDecimal(quote.last,1,2)}">120.00</span>
+            <span class="px-chg up" id="px-chg"
+                  th:text="|+${#numbers.formatDecimal(quote.change,1,2)} (+${#numbers.formatDecimal(quote.changePercent,1,2)}%)|">+8.30 (+7.43%)</span>
+        </div>
+
+        <div class="hdr-meta">
+            <span class="pill pill-buy" th:text="${profile.rating}">STRONG BUY</span>
+            <span class="pill pill-open" th:text="|MKT ${quote.session}|">MKT OPEN</span>
+            <span class="clock"><span id="clock">--:--:--</span> IST</span>
+        </div>
+    </div>
+
+    <div class="tape" aria-label="Headline metrics ticker">
+        <div class="tape-track">
+            <span class="tape-set">
+                <span class="tape-item" th:each="s : ${tape}">
+                    <span class="t-k" th:text="${s.label}">ANNUAL SAVINGS</span>
+                    <span class="t-v" th:text="${s.display()}">$120K</span>
+                    <span class="t-sep">◆</span>
+                </span>
+            </span>
+            <span class="tape-set" aria-hidden="true">
+                <span class="tape-item" th:each="s : ${tape}">
+                    <span class="t-k" th:text="${s.label}">ANNUAL SAVINGS</span>
+                    <span class="t-v" th:text="${s.display()}">$120K</span>
+                    <span class="t-sep">◆</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</header>
+
+<main class="wrap">
+
+    <!-- prompt line -->
+    <div class="prompt">
+        <span class="prompt-user">RECRUITER@VKLP</span><span class="prompt-path">:~$</span>
+        <span class="prompt-cmd" id="prompt-cmd"></span><span class="caret"></span>
+    </div>
+
+    <!-- ═══════════════════════════ [0] SECURITY PROFILE ══════════════════════ -->
+    <section class="panel" id="p0" data-panel="0" aria-labelledby="p0h">
+        <div class="panel-head">
+            <span class="p-idx">[0]</span>
+            <h2 class="p-title" id="p0h">SECURITY PROFILE</h2>
+            <span class="p-meta" th:text="${quote.exchange}">GTX · BENGALURU</span>
+        </div>
+
+        <div class="panel-body profile">
+            <div class="prof-card">
+                <div class="prof-top">
+                    <div>
+                        <div class="prof-name" th:text="${profile.name}">Vikalp Shandilya</div>
+                        <div class="prof-role">
+                            <span th:text="${profile.role}">Software Engineer II</span>
+                            <span class="dim"> @ </span>
+                            <span class="hl" th:text="${profile.company}">JP Morgan Chase &amp; Co.</span>
+                        </div>
+                    </div>
+                    <div class="prof-rating">
+                        <div class="stars" th:text="${profile.starGlyphs()}">★★★★★</div>
+                        <div class="rating-lbl" th:text="${profile.rating}">STRONG BUY</div>
+                    </div>
+                </div>
+
+                <dl class="kv">
+                    <div class="kv-row"><dt>TICKER</dt>
+                        <dd class="hl" th:text="${profile.ticker}">VKLP</dd>
+                    </div>
+                    <div class="kv-row"><dt>SECTOR</dt>
+                        <dd th:text="${profile.sector}">Software Engineering / Fintech Backend</dd>
+                    </div>
+                    <div class="kv-row"><dt>DESK</dt>
+                        <dd th:text="${profile.location}">Bengaluru, India</dd>
+                    </div>
+                    <div class="kv-row"><dt>LISTED SINCE</dt>
+                        <dd><span th:text="${profile.listedSince}">2019</span>
+                            <span class="dim"> · IPO: </span><span th:text="${profile.ipo}">THAPAR</span></dd>
+                    </div>
+                    <div class="kv-row"><dt>STATUS</dt>
+                        <dd><span class="status-live" th:text="${profile.status}">HIREABLE</span></dd>
+                    </div>
+                    <div class="kv-row"><dt>DSA</dt>
+                        <dd th:text="${profile.leetcode}">500+ SOLVED</dd>
+                    </div>
+                </dl>
+
+                <ul class="certs">
+                    <li th:each="c : ${profile.certifications}" th:text="${c}">AWS Certified Cloud Practitioner</li>
+                </ul>
+
+                <div class="links">
+                    <a class="lnk" th:href="${profile.github}" target="_blank" rel="noopener">GITHUB ↗</a>
+                    <a class="lnk" th:href="${profile.linkedin}" target="_blank" rel="noopener">LINKEDIN ↗</a>
+                    <a class="lnk" th:href="'mailto:' + ${profile.email}" th:text="${profile.email} + ' ↗'">email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════ [1] CAREER INDEX ══════════════════════════ -->
+    <section class="panel" id="p1" data-panel="1" aria-labelledby="p1h">
+        <div class="panel-head">
+            <span class="p-idx">[1]</span>
+            <h2 class="p-title" id="p1h">CAREER INDEX</h2>
+            <span class="p-meta ath" th:if="${quote.atAllTimeHigh()}">◆ ALL-TIME HIGH</span>
+        </div>
+
+        <div class="panel-body">
+            <div class="chart-wrap">
+                <div class="chart-hud">
+                    <div class="hud-left">
+                        <div class="hud-sym"
+                             th:text="|${quote.symbol} · CAREER INDEX · ${profile.listedSince}—NOW|">VKLP · CAREER
+                            INDEX · 2019—NOW
+                        </div>
+                        <div class="hud-px"><span id="chart-px"
+                                                  th:text="${#numbers.formatDecimal(quote.last,1,2)}">120.00</span>
+                            <span class="hud-chg up" id="chart-chg"
+                                  th:text="|▲ ${#numbers.formatDecimal(quote.changePercent,1,2)}%|">▲ 7.43%</span>
+                        </div>
+                    </div>
+                    <div class="hud-right">
+                        <span><b>O</b> <span th:text="${#numbers.formatDecimal(quote.open,1,2)}">112.00</span></span>
+                        <span><b>H</b> <span class="up" id="hud-h"
+                                             th:text="${#numbers.formatDecimal(quote.dayHigh,1,2)}">120.00</span></span>
+                        <span><b>L</b> <span class="dn" id="hud-l"
+                                             th:text="${#numbers.formatDecimal(quote.dayLow,1,2)}">111.70</span></span>
+                        <span><b>VOL</b> <span
+                                th:text="${#numbers.formatInteger(quote.volume,3,'COMMA')}">500,000</span></span>
+                        <span><b>52W LO</b> <span
+                                th:text="${#numbers.formatDecimal(quote.yearLow,1,2)}">40.00</span></span>
+                    </div>
+                </div>
+                <canvas id="chart" height="260" aria-label="VKLP career index, trending up to an all-time high"
+                        role="img"></canvas>
+                <p class="chart-note">Index levels are the conceit, not the resume — each one is anchored to a real
+                    number below (last 120.00 = $120K saved · change +8.30 = CGPA 8.3 · volume 500K = records/day).</p>
+            </div>
+
+            <div class="stats" id="stats">
+                <div class="stat" th:each="s : ${stats}"
+                     th:data-value="${s.value}" th:data-decimals="${s.decimals}"
+                     th:data-prefix="${s.prefix}" th:data-suffix="${s.suffix}">
+                    <div class="stat-v" th:text="${s.display()}">$120K</div>
+                    <div class="stat-l" th:text="${s.label}">ANNUAL SAVINGS</div>
+                    <div class="stat-n" th:text="${s.note}">MySQL→PostgreSQL migration</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════ [2] TRADE BLOTTER ═════════════════════════ -->
+    <section class="panel" id="p2" data-panel="2" aria-labelledby="p2h">
+        <div class="panel-head">
+            <span class="p-idx">[2]</span>
+            <h2 class="p-title" id="p2h">TRADE BLOTTER</h2>
+            <span class="p-meta">EXECUTIONS · NEWEST FIRST</span>
+        </div>
+
+        <div class="panel-body">
+            <div class="blot-head" aria-hidden="true">
+                <span>PERIOD</span><span>SIDE</span><span>DESK</span><span>ROLE</span><span>P&amp;L</span>
+            </div>
+
+            <article class="blot" th:each="e : ${blotter}" th:classappend="${e.open() ? 'blot-open' : ''}">
+                <div class="blot-row">
+                    <span class="b-period" th:text="${e.period}">JUL'23—NOW</span>
+                    <span class="b-side" th:classappend="${e.side == 'BUY' ? 'side-buy' : 'side-ipo'}"
+                          th:text="${e.side}">BUY</span>
+                    <span class="b-desk" th:text="${e.desk}">JP MORGAN CHASE</span>
+                    <span class="b-role" th:text="${e.role}">Software Engineer II</span>
+                    <span class="b-pnl" th:classappend="'dir-' + ${#strings.toLowerCase(e.direction)}"
+                          th:text="${e.pnl}">+$120K SAVED</span>
+                </div>
+                <ul class="fills">
+                    <li th:each="f : ${e.fills}"><span class="fill-mark" aria-hidden="true">▸</span><span
+                            th:text="${f}">fill</span></li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════ [3] ORDER BOOK ═══════════════════════════ -->
+    <section class="panel" id="p3" data-panel="3" aria-labelledby="p3h">
+        <div class="panel-head">
+            <span class="p-idx">[3]</span>
+            <h2 class="p-title" id="p3h">ORDER BOOK</h2>
+            <span class="p-meta">DEPTH = BOOK LEVEL, NOT PROFICIENCY</span>
+        </div>
+
+        <div class="panel-body book">
+            <div class="book-side book-bid">
+                <div class="book-side-head"><span class="side-buy">BID</span> <span class="dim">— what I build with</span>
+                </div>
+                <div class="book-grp" th:each="g : ${bids}">
+                    <div class="book-cat" th:text="${g.category}">Systems &amp; Backend</div>
+                    <ul class="levels">
+                        <li class="lvl" th:each="item, i : ${g.items}"
+                            th:style="|--depth:${100 - i.index * 7}%|">
+                            <span class="lvl-n" th:text="${#numbers.formatInteger(i.index + 1, 2)}">01</span>
+                            <span class="lvl-name" th:text="${item}">Java</span>
+                            <span class="lvl-bar" aria-hidden="true"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="book-mid" aria-hidden="true">
+                <div class="mid-line"></div>
+                <div class="mid-label">SPREAD<br><b>0.00</b><br>ALWAYS<br>LEARNING</div>
+                <div class="mid-line"></div>
+            </div>
+
+            <div class="book-side book-ask">
+                <div class="book-side-head"><span class="side-sell">ASK</span> <span
+                        class="dim">— what I reach for</span></div>
+                <div class="book-grp" th:each="g : ${asks}">
+                    <div class="book-cat" th:text="${g.category}">Cloud, AI &amp; Tooling</div>
+                    <ul class="levels">
+                        <li class="lvl" th:each="item, i : ${g.items}"
+                            th:style="|--depth:${100 - i.index * 7}%|">
+                            <span class="lvl-n" th:text="${#numbers.formatInteger(i.index + 1, 2)}">01</span>
+                            <span class="lvl-name" th:text="${item}">AWS</span>
+                            <span class="lvl-bar" aria-hidden="true"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════ [4] PORTFOLIO HOLDINGS ══════════════════════ -->
+    <section class="panel" id="p4" data-panel="4" aria-labelledby="p4h">
+        <div class="panel-head">
+            <span class="p-idx">[4]</span>
+            <h2 class="p-title" id="p4h">PORTFOLIO HOLDINGS</h2>
+            <span class="p-meta">POSITIONS · MARK-TO-MARKET</span>
+        </div>
+
+        <div class="panel-body">
+            <article class="hold" th:each="h : ${holdings}">
+                <div class="hold-head">
+                    <span class="hold-tkr" th:text="${h.ticker}">KITE</span>
+                    <span class="hold-dir" th:text="${h.direction}">▲</span>
+                    <span class="hold-tag" th:text="${h.tag}">QUANT</span>
+                    <span class="hold-period" th:text="${h.period}">2025–Present</span>
+                </div>
+                <h3 class="hold-name" th:text="${h.name}">KiteTerminal</h3>
+                <p class="hold-thesis" th:text="${h.thesis}">thesis</p>
+                <div class="chips">
+                    <span class="chip" th:each="t : ${h.tech}" th:text="${t}">PYTHON</span>
+                </div>
+                <a class="lnk" th:href="${h.link}" target="_blank" rel="noopener">OPEN POSITION ↗</a>
+            </article>
+
+            <a class="view-all" th:href="${profile.githubRepos}" target="_blank" rel="noopener">VIEW ALL →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════ [5] NEWS WIRE ══════════════════════════ -->
+    <section class="panel" id="p5" data-panel="5" aria-labelledby="p5h">
+        <div class="panel-head">
+            <span class="p-idx">[5]</span>
+            <h2 class="p-title" id="p5h">NEWS WIRE</h2>
+            <span class="p-meta">VKLP HEADLINES</span>
+        </div>
+
+        <div class="panel-body">
+            <ol class="wire">
+                <li class="wire-row" th:each="n : ${news}" th:classappend="${n.breaking() ? 'wire-breaking' : ''}">
+                    <span class="w-yr"><span class="w-tick">&#39;</span><span th:text="${n.year}">25</span></span>
+                    <span class="w-tag" th:text="${n.tag}">BREAKING</span>
+                    <span class="w-head" th:text="${n.headline}">headline</span>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════ [6] EXECUTE ORDER ════════════════════════ -->
+    <section class="panel panel-exec" id="p6" data-panel="6" aria-labelledby="p6h">
+        <div class="panel-head">
+            <span class="p-idx">[6]</span>
+            <h2 class="p-title" id="p6h">EXECUTE ORDER</h2>
+            <span class="p-meta blink-slow">● MARKET OPEN</span>
+        </div>
+
+        <div class="panel-body exec">
+            <p class="exec-line">MARKET IS OPEN. <span class="hl" th:text="${profile.ticker}">VKLP</span> IS ACCEPTING
+                OFFERS.</p>
+
+            <a class="cta" th:href="${profile.buyOrderMailto()}">▶ PLACE BUY ORDER — HIRE ME</a>
+
+            <div class="exec-grid">
+                <a class="exec-cell" th:href="'mailto:' + ${profile.email}">
+                    <span class="ec-k">EMAIL</span><span class="ec-v" th:text="${profile.email}">email</span>
+                </a>
+                <a class="exec-cell" th:href="${profile.github}" target="_blank" rel="noopener">
+                    <span class="ec-k">GITHUB</span><span class="ec-v">github.com/vikalp10</span>
+                </a>
+                <a class="exec-cell" th:href="${profile.linkedin}" target="_blank" rel="noopener">
+                    <span class="ec-k">LINKEDIN</span><span class="ec-v">in/vikalp-shandilya</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="foot">
+        <div class="foot-l">© <span th:text="${buildYear}">2026</span> <span th:text="${profile.name}">Vikalp Shandilya</span>
+            · BUILT WITH CAFFEINE &amp; CONVICTION
+        </div>
+        <div class="foot-r">
+            <span class="tip">TIP: press <kbd>0</kbd>–<kbd>6</kbd> to jump · <kbd>/</kbd> for commands</span>
+        </div>
+    </footer>
+</main>
+
+<!-- ══════════════════════════════ FUNCTION BAR ══════════════════════════════ -->
+<nav class="fbar" aria-label="Panel navigation">
+    <a href="#p0" data-jump="0"><b>0</b> PROFILE</a>
+    <a href="#p1" data-jump="1"><b>1</b> INDEX</a>
+    <a href="#p2" data-jump="2"><b>2</b> BLOTTER</a>
+    <a href="#p3" data-jump="3"><b>3</b> BOOK</a>
+    <a href="#p4" data-jump="4"><b>4</b> HOLDINGS</a>
+    <a href="#p5" data-jump="5"><b>5</b> NEWS</a>
+    <a href="#p6" data-jump="6"><b>6</b> EXECUTE</a>
+    <button type="button" id="palette-open" class="fbar-cmd"><b>/</b> CMD</button>
+</nav>
+
+<!-- ═══════════════════════════════ CMD PALETTE ══════════════════════════════ -->
+<dialog id="palette" class="palette" aria-label="Command palette">
+    <div class="pal-head"><span class="pal-prompt">VKLP&gt;</span>
+        <input id="pal-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command…"
+               aria-label="Command">
+    </div>
+    <ul id="pal-list" class="pal-list" role="listbox"></ul>
+    <div class="pal-foot"><kbd>↑</kbd><kbd>↓</kbd> move · <kbd>↵</kbd> run · <kbd>esc</kbd> close</div>
+</dialog>
+
+<script src="./js/terminal.js" defer></script>
+</body>
+</html>

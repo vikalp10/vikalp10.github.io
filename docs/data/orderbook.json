@@ -1,0 +1,13 @@
+[ {
+  "side" : "BID",
+  "category" : "Systems & Backend",
+  "items" : [ "Python 3.x", "Java", "SQL", "Spring Boot", "Spring (Core / MVC / Data JPA / Security)", "RESTful APIs", "Microservices", "GraphQL", "Kafka" ]
+}, {
+  "side" : "ASK",
+  "category" : "Cloud, AI & Tooling",
+  "items" : [ "AWS (S3, Lambda, Step Functions, Glue, RDS, EC2, SQS)", "Terraform", "Spinnaker", "Docker", "IaC", "MCP (Model Context Protocol)", "LLM agents", "Moderne CLI" ]
+}, {
+  "side" : "ASK",
+  "category" : "Databases",
+  "items" : [ "PostgreSQL", "MySQL", "JPA / Hibernate" ]
+} ]

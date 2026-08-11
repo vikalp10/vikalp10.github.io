@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VKLP">
+  <rect width="64" height="64" rx="8" fill="#050705"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="7" fill="none" stroke="#00ff9d" stroke-width="3"/>
+  <text x="32" y="30" text-anchor="middle"
+        font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace"
+        font-size="19" font-weight="700" letter-spacing="-0.5" fill="#00ff9d">VKLP</text>
+  <polyline points="12,50 23,43 33,47 43,34 52,26" fill="none" stroke="#00ff9d"
+            stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <polygon points="52,26 44,25 51,33" fill="#00ff9d"/>
+</svg>

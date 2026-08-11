@@ -1,0 +1,25 @@
+[ {
+  "year" : "25",
+  "tag" : "BREAKING",
+  "headline" : "VKLP SHIPS ZERO-DOWNTIME 2TB MIGRATION — $120K SAVED, QUERIES UP 40%"
+}, {
+  "year" : "25",
+  "tag" : "LAUNCH",
+  "headline" : "VKLP LAUNCHES SELF-SERVICE FEED-ONBOARDING PLATFORM — JIRA-TO-PROD, FULLY AUTOMATED"
+}, {
+  "year" : "25",
+  "tag" : "PROD",
+  "headline" : "MCP + LLM AGENTS HIT PROD — DATA-QUALITY REVIEW GOES HANDS-OFF"
+}, {
+  "year" : "24",
+  "tag" : "SECURITY",
+  "headline" : "SELF-IMPROVING AI AGENT REMEDIATES 120+ VULNS ACROSS 22 REPOS"
+}, {
+  "year" : "23",
+  "tag" : "AWARD",
+  "headline" : "VKLP NAMED BEST PERFORMING INTERN — TOP 5% OF COHORT; AWS CLOUD PRACTITIONER CERTIFIED"
+}, {
+  "year" : "23",
+  "tag" : "IPO",
+  "headline" : "GRADUATES THAPAR (CGPA 8.3, MERIT SCHOLARSHIP TOP 10%); ANALYSTS REITERATE STRONG BUY"
+} ]
