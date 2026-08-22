@@ -50,7 +50,7 @@ docs/                          generated — this is what Pages serves
 ## Panels
 
 `[0]` Security Profile · `[1]` Career Index · `[2]` Trade Blotter · `[3]` Order Book ·
-`[4]` Portfolio Holdings · `[5]` News Wire · `[6]` Execute Order
+`[4]` Concentrated Position · `[5]` News Wire · `[6]` Execute Order
 
 Press <kbd>0</kbd>–<kbd>6</kbd> to jump between them, or <kbd>/</kbd> for the command palette.
 

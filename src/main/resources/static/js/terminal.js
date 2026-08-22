@@ -71,7 +71,7 @@
         ['> VKLP TERMINAL v1.0.0 — GLOBAL TALENT EXCHANGE', ''],
         ['> initializing market data feed ......... ', 'OK'],
         ['> loading security profile: VKLP ........ ', 'OK'],
-        ['> mounting trade blotter (4 executions) . ', 'OK'],
+        ['> mounting trade blotter (5 executions) . ', 'OK'],
         ['> building order book depth ............. ', 'OK'],
         ['> marking portfolio holdings to market .. ', 'OK'],
         ['> subscribing to news wire .............. ', 'OK'],
@@ -81,9 +81,26 @@
         ['> MARKET OPEN. VKLP IS ACCEPTING OFFERS.', '']
     ];
 
-    const BOOT_TYPE_MS = 2200;   // how long the full sequence takes to type
-    const BOOT_HOLD_MS = 480;    // beat after the last line before dismissing
-    const BOOT_MAX_MS = 5200;    // hard ceiling, whatever the frame rate does
+    const BOOT_TYPE_MS = 1200;   // how long the full sequence takes to type
+    const BOOT_HOLD_MS = 300;    // beat after the last line before dismissing
+    const BOOT_MAX_MS = 3000;    // hard ceiling, whatever the frame rate does
+
+    /**
+     * Set once the curtain has been raised. A returning visitor gets the terminal
+     * directly — the boot sequence is a first-impression, and on the second visit it is
+     * just latency. The inline script in the document head reads the same key to keep
+     * the overlay from painting at all; this module owns writing it.
+     */
+    const BOOT_SEEN_KEY = 'vklp.booted';
+
+    /** localStorage throws outright in some privacy modes — never let it break boot. */
+    function bootSeen() {
+        try { return localStorage.getItem(BOOT_SEEN_KEY) === '1'; } catch { return false; }
+    }
+
+    function markBootSeen() {
+        try { localStorage.setItem(BOOT_SEEN_KEY, '1'); } catch { /* nothing to do */ }
+    }
 
     /**
      * Types the boot log, then resolves. Progress is derived from elapsed time rather
@@ -95,6 +112,11 @@
         const el = $('#boot');
         const log = $('#boot-log');
         if (!el || !log) return Promise.resolve();
+
+        if (bootSeen()) {
+            el.remove();
+            return Promise.resolve();
+        }
 
         document.body.classList.add('booting');
 
@@ -116,6 +138,7 @@
         const finish = () => {
             if (done) return;
             done = true;
+            markBootSeen();
             el.classList.add('gone');
             document.body.classList.remove('booting');
             window.removeEventListener('keydown', finish);
@@ -303,8 +326,9 @@
         { at: 0.00, label: 'IPO' },
         { at: 0.46, label: 'INTERN' },
         { at: 0.53, label: 'SEP' },
-        { at: 0.60, label: 'SWE II' },
-        { at: 0.79, label: 'KITE' }
+        { at: 0.60, label: 'SWE' },
+        { at: 0.79, label: 'KITE' },
+        { at: 0.86, label: 'SWE II' }
     ];
 
     function buildSeries(q, n = 220) {
@@ -522,12 +546,40 @@
         stats.forEach(s => io.observe(s));
     }
 
+    /* ── holdings: capture frames ──────────────────────────────────────────── */
+
+    /**
+     * A holding declares a screenshot before the file necessarily exists. Rather than
+     * printing a broken-image icon on a page that is otherwise all deliberate glyphs,
+     * swap a missing capture for the "no feed" placeholder already in the markup.
+     */
+    function wireHoldingShots() {
+        $$('.hold-shot img').forEach(img => {
+            const frame = img.closest('.hold-shot');
+            const pending = frame ? $('.shot-pending', frame) : null;
+            if (!pending) return;
+
+            const fail = () => {
+                img.hidden = true;
+                pending.hidden = false;
+            };
+            img.addEventListener('error', fail);
+            // Covers an image that already failed before this script ran.
+            if (img.complete && img.naturalWidth === 0) fail();
+        });
+    }
+
     /* ── navigation: keys 0–6 + function bar highlighting ──────────────────── */
 
     function jumpTo(n) {
         const panel = document.getElementById('p' + n);
         if (!panel) return;
         panel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        // Move focus with the viewport. Without this a keyboard user lands on a panel
+        // visually while their focus stays wherever it was, so the next Tab throws them
+        // back — the exact problem a skip link exists to solve. preventScroll because
+        // scrollIntoView above already owns the scrolling (and animates it).
+        panel.focus({ preventScroll: true });
         panel.classList.remove('flash');
         void panel.offsetWidth;
         panel.classList.add('flash');
@@ -570,6 +622,7 @@
 
         const COMMANDS = [
             { cmd: 'hire', desc: 'Place a buy order — email me', run: () => go(href('.cta')) },
+            { cmd: 'resume', desc: 'Download the prospectus (PDF resume)', run: () => go(href('.cta-ghost')) },
             { cmd: 'github', desc: 'Open GitHub profile', run: () => go(href('.exec-cell[href*="github"]'), true) },
             { cmd: 'linkedin', desc: 'Open LinkedIn profile', run: () => go(href('.exec-cell[href*="linkedin"]'), true) },
             { cmd: 'email', desc: 'Compose an email', run: () => go(href('.exec-cell[href^="mailto"]')) },
@@ -578,7 +631,7 @@
             { cmd: 'index', desc: 'Jump to [1] Career Index', run: () => jumpTo(1) },
             { cmd: 'blotter', desc: 'Jump to [2] Trade Blotter', run: () => jumpTo(2) },
             { cmd: 'book', desc: 'Jump to [3] Order Book', run: () => jumpTo(3) },
-            { cmd: 'holdings', desc: 'Jump to [4] Portfolio Holdings', run: () => jumpTo(4) },
+            { cmd: 'position', desc: 'Jump to [4] Concentrated Position — the KITE holding', run: () => jumpTo(4) },
             { cmd: 'news', desc: 'Jump to [5] News Wire', run: () => jumpTo(5) },
             { cmd: 'print', desc: 'Print / save this terminal as PDF', run: () => window.print() }
         ];
@@ -694,6 +747,7 @@
         startClock();
         setupNav();
         setupPalette();
+        wireHoldingShots();
 
         // The boot overlay is decoration. Start it, but build the terminal underneath it
         // straight away so a stalled animation can never leave the page half-alive.

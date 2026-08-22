@@ -17,10 +17,19 @@
     <meta property="og:description"
           content="A trading terminal where the security is a backend engineer. Software Engineer II at JP Morgan Chase — Java, Spring Boot, Kafka, AWS. Market is open.">
     <meta property="og:url" content="https://vikalp10.github.io">
-    <meta name="twitter:card" content="summary">
+    <!-- Absolute, not relative: LinkedIn/Slack/X fetch these server-side with no page context. -->
+    <meta property="og:image" content="https://vikalp10.github.io/og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"
+          content="The VKLP terminal: a phosphor-green trading desk quoting Vikalp Shandilya as a security, rated STRONG BUY.">
+
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="VKLP · Vikalp Shandilya">
     <meta name="twitter:description"
           content="A trading terminal where the security is a backend engineer. Rated STRONG BUY. Market is open.">
+    <meta name="twitter:image" content="https://vikalp10.github.io/og.png">
 
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://vikalp10.github.io">
@@ -30,6 +39,19 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="./css/terminal.css">
+
+    <!-- The only inline script on the page, and it earns its place: terminal.js is
+         deferred, so by the time it could remove the boot overlay a returning visitor
+         has already been shown a frame of it. Reading the flag here, before first
+         paint, is the difference between "no boot sequence" and "a flash of one".
+         terminal.js owns writing this key. -->
+    <script>
+        try {
+            if (localStorage.getItem('vklp.booted') === '1') {
+                document.documentElement.classList.add('booted');
+            }
+        } catch (e) { /* privacy mode: play the boot sequence, it is not important enough to break on */ }
+    </script>
 </head>
 
 <body>
@@ -39,9 +61,14 @@
 <a class="skip" href="#p0">Skip to content</a>
 
 <!-- ══════════════════════════════════ BOOT ══════════════════════════════════ -->
-<div id="boot" class="boot" role="status" aria-label="Terminal boot sequence">
+<!-- No role="status" here: that made the whole splash an aria-live region, and #boot-log
+     is rewritten ~30x/second while typing, so every frame was announced. The overlay is a
+     decorative curtain that dismisses itself; nothing in it is unavailable underneath. -->
+<div id="boot" class="boot">
     <div class="boot-inner">
-        <pre class="boot-logo" aria-hidden="true">
+        <!-- role="img" matters as much as the label: without it a screen reader spells out
+             the box-drawing characters one by one instead of reading the wordmark. -->
+        <pre class="boot-logo" role="img" aria-label="VKLP">
  ██╗   ██╗██╗  ██╗██╗     ██████╗
  ██║   ██║██║ ██╔╝██║     ██╔══██╗
  ██║   ██║█████╔╝ ██║     ██████╔╝
@@ -99,6 +126,18 @@
                     <span class="t-v">40%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
+                    <span class="t-k">FEEDS ONBOARDED</span>
+                    <span class="t-v">200+</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
+                    <span class="t-k">FEED ONBOARDING</span>
+                    <span class="t-v">3D → 6H</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
+                    <span class="t-k">ON-CALL TRIAGE</span>
+                    <span class="t-v">2H → 15M</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
                     <span class="t-k">FASTER ONBOARDING</span>
                     <span class="t-v">85%</span>
                     <span class="t-sep">◆</span>
@@ -108,7 +147,7 @@
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">API LATENCY</span>
-                    <span class="t-v">-35%</span>
+                    <span class="t-v">▼35%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">KAFKA EVENTS/DAY</span>
@@ -131,12 +170,12 @@
                     <span class="t-v">15+</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
-                    <span class="t-k">TEST COVERAGE</span>
-                    <span class="t-v">85%</span>
+                    <span class="t-k">ENGINEERS MENTORED</span>
+                    <span class="t-v">2</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
-                    <span class="t-k">DSA SOLVED</span>
-                    <span class="t-v">500+</span>
+                    <span class="t-k">TEST COVERAGE</span>
+                    <span class="t-v">85%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">CGPA</span>
@@ -162,6 +201,18 @@
                     <span class="t-v">40%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
+                    <span class="t-k">FEEDS ONBOARDED</span>
+                    <span class="t-v">200+</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
+                    <span class="t-k">FEED ONBOARDING</span>
+                    <span class="t-v">3D → 6H</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
+                    <span class="t-k">ON-CALL TRIAGE</span>
+                    <span class="t-v">2H → 15M</span>
+                    <span class="t-sep">◆</span>
+                </span><span class="tape-item">
                     <span class="t-k">FASTER ONBOARDING</span>
                     <span class="t-v">85%</span>
                     <span class="t-sep">◆</span>
@@ -171,7 +222,7 @@
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">API LATENCY</span>
-                    <span class="t-v">-35%</span>
+                    <span class="t-v">▼35%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">KAFKA EVENTS/DAY</span>
@@ -194,12 +245,12 @@
                     <span class="t-v">15+</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
-                    <span class="t-k">TEST COVERAGE</span>
-                    <span class="t-v">85%</span>
+                    <span class="t-k">ENGINEERS MENTORED</span>
+                    <span class="t-v">2</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
-                    <span class="t-k">DSA SOLVED</span>
-                    <span class="t-v">500+</span>
+                    <span class="t-k">TEST COVERAGE</span>
+                    <span class="t-v">85%</span>
                     <span class="t-sep">◆</span>
                 </span><span class="tape-item">
                     <span class="t-k">CGPA</span>
@@ -220,7 +271,7 @@
     </div>
 
     <!-- ═══════════════════════════ [0] SECURITY PROFILE ══════════════════════ -->
-    <section class="panel" id="p0" data-panel="0" aria-labelledby="p0h">
+    <section class="panel" id="p0" data-panel="0" tabindex="-1" aria-labelledby="p0h">
         <div class="panel-head">
             <span class="p-idx">[0]</span>
             <h2 class="p-title" id="p0h">SECURITY PROFILE</h2>
@@ -261,9 +312,6 @@
                     <div class="kv-row"><dt>STATUS</dt>
                         <dd><span class="status-live">HIREABLE</span></dd>
                     </div>
-                    <div class="kv-row"><dt>DSA</dt>
-                        <dd>500+ SOLVED</dd>
-                    </div>
                 </dl>
 
                 <ul class="certs">
@@ -273,8 +321,10 @@
                 </ul>
 
                 <div class="links">
+                    <a class="lnk lnk-dl" href="./resume.pdf" type="application/pdf" download>DOWNLOAD
+                        PROSPECTUS ↓</a>
                     <a class="lnk" href="https://github.com/vikalp10" target="_blank" rel="noopener">GITHUB ↗</a>
-                    <a class="lnk" href="https://linkedin.com/in/vikalp-shandilya" target="_blank" rel="noopener">LINKEDIN ↗</a>
+                    <a class="lnk" href="https://www.linkedin.com/in/vikalp-shandilya-103525198" target="_blank" rel="noopener">LINKEDIN ↗</a>
                     <a class="lnk" href="mailto:vikalp09.shandilya@gmail.com">vikalp09.shandilya@gmail.com ↗</a>
                 </div>
             </div>
@@ -282,7 +332,7 @@
     </section>
 
     <!-- ═══════════════════════════ [1] CAREER INDEX ══════════════════════════ -->
-    <section class="panel" id="p1" data-panel="1" aria-labelledby="p1h">
+    <section class="panel" id="p1" data-panel="1" tabindex="-1" aria-labelledby="p1h">
         <div class="panel-head">
             <span class="p-idx">[1]</span>
             <h2 class="p-title" id="p1h">CAREER INDEX</h2>
@@ -341,7 +391,7 @@
                      data-suffix="%">
                     <div class="stat-v">85%</div>
                     <div class="stat-l">FASTER ONBOARDING</div>
-                    <div class="stat-n">7 days → 1 day</div>
+                    <div class="stat-n">vendor feeds: 7 days → 1 day</div>
                 </div>
                 <div class="stat" data-value="120.0" data-decimals="0"
                      data-suffix="+">
@@ -355,12 +405,35 @@
                     <div class="stat-l">LOWER API LATENCY</div>
                     <div class="stat-n">Kafka event-driven redesign</div>
                 </div>
+                <div class="stat" data-value="200.0" data-decimals="0"
+                     data-suffix="+">
+                    <div class="stat-v">200+</div>
+                    <div class="stat-l">FEEDS ONBOARDED</div>
+                    <div class="stat-n">self-service onboarding platform</div>
+                </div>
+                <div class="stat" data-value="6.0" data-decimals="0"
+                     data-prefix="3D → " data-suffix="H">
+                    <div class="stat-v">3D → 6H</div>
+                    <div class="stat-l">FEED ONBOARDING</div>
+                    <div class="stat-n">3 days → under 6 hours</div>
+                </div>
+                <div class="stat" data-value="15.0" data-decimals="0"
+                     data-prefix="2H → " data-suffix="M">
+                    <div class="stat-v">2H → 15M</div>
+                    <div class="stat-l">ON-CALL TRIAGE</div>
+                    <div class="stat-n">contract-based monitoring layer</div>
+                </div>
+                <div class="stat" data-value="2.0" data-decimals="0">
+                    <div class="stat-v">2</div>
+                    <div class="stat-l">ENGINEERS MENTORED</div>
+                    <div class="stat-n">1 intern · 1 experienced joiner</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ═══════════════════════════ [2] TRADE BLOTTER ═════════════════════════ -->
-    <section class="panel" id="p2" data-panel="2" aria-labelledby="p2h">
+    <section class="panel" id="p2" data-panel="2" tabindex="-1" aria-labelledby="p2h">
         <div class="panel-head">
             <span class="p-idx">[2]</span>
             <h2 class="p-title" id="p2h">TRADE BLOTTER</h2>
@@ -374,18 +447,30 @@
 
             <article class="blot blot-open">
                 <div class="blot-row">
-                    <span class="b-period">JUL&#39;23—NOW</span>
+                    <span class="b-period">JAN&#39;26—NOW</span>
                     <span class="b-side side-buy">BUY</span>
                     <span class="b-desk">JP MORGAN CHASE</span>
                     <span class="b-role">Software Engineer II</span>
+                    <span class="b-pnl dir-up">3 DAYS → 6 HRS</span>
+                </div>
+                <ul class="fills">
+                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Self-service feed-onboarding platform: pulls the spec straight from a Jira ticket, generates the Java entity, creates the DB table and closes the ticket — incomplete requests are auto-returned to the requester with the exact missing fields. Feed onboarding cut from 3 days to under 6 hours across 200+ feeds</span></li>
+                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Contract-based monitoring layer covering 20 feeds for 4 major trading consumers — scans registered datasets, parses failure logs, surfaces root cause with a recommended action, and escalates SLA-breach risk to consumers. On-call triage cut from 2 hours to 15 minutes</span></li>
+                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Agentic tooling in production: an MCP server (JPMC hackathon) where LLM agents vet datasets against configurable data-quality templates, adopted by the Data Quality team to replace manual review — plus a self-improving agent (3 skills, Moderne CLI) driving Spring Boot 2.x→4.x migration, remediating 120+ vulnerabilities across 22 repositories</span></li>
+                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Weekly on-call rotation for the platform; onboarded and mentored 2 engineers — an intern and an experienced joiner — on the team&#39;s codebase, delivery process and AWS infrastructure</span></li>
+                </ul>
+            </article>
+
+            <article class="blot">
+                <div class="blot-row">
+                    <span class="b-period">JUL&#39;23—DEC&#39;25</span>
+                    <span class="b-side side-buy">BUY</span>
+                    <span class="b-desk">JP MORGAN CHASE</span>
+                    <span class="b-role">Software Engineer</span>
                     <span class="b-pnl dir-up">+$120K SAVED</span>
                 </div>
                 <ul class="fills">
-                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Leading an automated feed-onboarding platform — pulls feed specs straight from Jira, bounces incomplete requests back to product owners with the exact missing fields, then runs onboarding end to end (Java entity generation → DB table creation → ticket close) through a configurable self-service UI</span></li>
-                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Building its monitoring layer: consumers register a data contract, the system scans feeds, reads the logs of failing ones, explains root cause and hands the on-call a recommended action plan without ever touching prod data — SLA-breach risk raises an incident and alerts consumers automatically</span></li>
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Zero-downtime MySQL→PostgreSQL migration: 50+ tables, 2TB+, 5 teams, dual-write plus shadow-read — $120K/yr saved, 40% faster queries, adopted as the org-wide playbook</span></li>
-                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>MCP server (JPMC hackathon) where LLM agents vet datasets against configurable data-quality templates and raise rule alerts — running in production with the Data Quality team, replacing manual review</span></li>
-                    <li><span class="fill-mark" aria-hidden="true">▸</span><span>Self-improving AI agent (3 skills, Moderne CLI) for Spring Boot 2.x→4.x upgrades — 120+ vulnerabilities remediated across 22 repositories</span></li>
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Python/Java ETL framework at 500K+ records/day (8GB, peaking at 200 rec/sec) across 15+ vendors — onboarding cut from 7 days to 1 (85%), serving 3 teams on AWS Step Functions (Lambda / Glue / S3) at a 99.9% SLA</span></li>
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Event-driven Spring Boot + Kafka backbone — 8 topics, 3 consumer groups, 50K+ events/day, 35% lower API latency</span></li>
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Multi-account AWS provisioned with Terraform, plus Spinnaker blue-green CI/CD adopted across 4 teams</span></li>
@@ -399,7 +484,7 @@
                     <span class="b-side side-buy">BUY</span>
                     <span class="b-desk">JP MORGAN CHASE</span>
                     <span class="b-role">SEP Intern</span>
-                    <span class="b-pnl dir-up">−25% STARTUP</span>
+                    <span class="b-pnl dir-up">▼25% STARTUP TIME</span>
                 </div>
                 <ul class="fills">
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Led the Java 8→17 migration across 12 microservices — 30% less boilerplate, 25% faster startup, and 3 deprecated security libraries flagged in compliance removed</span></li>
@@ -413,7 +498,7 @@
                     <span class="b-side side-buy">BUY</span>
                     <span class="b-desk">JP MORGAN CHASE</span>
                     <span class="b-role">Summer Analyst Intern</span>
-                    <span class="b-pnl dir-up">−50% INTEGRATION</span>
+                    <span class="b-pnl dir-up">▼50% INTEGRATION TIME</span>
                 </div>
                 <ul class="fills">
                     <li><span class="fill-mark" aria-hidden="true">▸</span><span>Full-stack maker-checker application (Spring Boot + Angular) with a dual-authorization workflow, REST APIs and Swagger documentation</span></li>
@@ -438,7 +523,7 @@
     </section>
 
     <!-- ════════════════════════════ [3] ORDER BOOK ═══════════════════════════ -->
-    <section class="panel" id="p3" data-panel="3" aria-labelledby="p3h">
+    <section class="panel" id="p3" data-panel="3" tabindex="-1" aria-labelledby="p3h">
         <div class="panel-head">
             <span class="p-idx">[3]</span>
             <h2 class="p-title" id="p3h">ORDER BOOK</h2>
@@ -580,11 +665,11 @@
     </section>
 
     <!-- ═════════════════════════ [4] PORTFOLIO HOLDINGS ══════════════════════ -->
-    <section class="panel" id="p4" data-panel="4" aria-labelledby="p4h">
+    <section class="panel" id="p4" data-panel="4" tabindex="-1" aria-labelledby="p4h">
         <div class="panel-head">
             <span class="p-idx">[4]</span>
-            <h2 class="p-title" id="p4h">PORTFOLIO HOLDINGS</h2>
-            <span class="p-meta">POSITIONS · MARK-TO-MARKET</span>
+            <h2 class="p-title" id="p4h">CONCENTRATED POSITION</h2>
+            <span class="p-meta">SINGLE NAME · HIGH CONVICTION</span>
         </div>
 
         <div class="panel-body">
@@ -596,19 +681,43 @@
                     <span class="hold-period">2025–Present</span>
                 </div>
                 <h3 class="hold-name">KiteTerminal — Algorithmic Trading Terminal</h3>
+
+                <ul class="hold-metrics">
+                    <li>
+                        <b>7</b><span>STRATEGIES</span>
+                    </li>
+                    <li>
+                        <b>500</b><span>STOCK UNIVERSE</span>
+                    </li>
+                    <li>
+                        <b>3</b><span>DESKS · INTRADAY / SWING / F&amp;O</span>
+                    </li>
+                    <li>
+                        <b>0</b><span>LOOK-AHEAD BIAS</span>
+                    </li>
+                </ul>
+
                 <p class="hold-thesis">Full-stack trading terminal built on the Zerodha Kite Connect REST and WebSocket APIs, with separate intraday, swing and F&amp;O sections and a paper-trading switch that routes simulated and live orders down one auditable path. Runs 7 strategies across equity and index options: swing entries screen a 500-stock universe behind pattern, fundamental and relative-strength gates, while F&amp;O trades multi-leg structures with delta-based strike selection — all validated on a no-look-ahead backtester that models real brokerage costs and slippage.</p>
+
+                <figure class="hold-shot">
+                    <div class="shot-chrome" aria-hidden="true">
+                        <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+                        <span class="shot-title">KITE · TERMINAL CAPTURE</span>
+                    </div>
+                    <img src="./img/kite-terminal.png" alt="KiteTerminal running — intraday, swing and F&amp;O sections with live positions and the paper-trading switch" loading="lazy" decoding="async">
+                    <figcaption class="shot-pending" hidden>▮ NO FEED — TERMINAL CAPTURE PENDING</figcaption>
+                </figure>
+
                 <div class="chips">
                     <span class="chip">PYTHON</span><span class="chip">FASTAPI</span><span class="chip">NEXT.JS</span><span class="chip">TYPESCRIPT</span><span class="chip">TAURI</span>
                 </div>
-                <a class="lnk" href="https://github.com/vikalp10" target="_blank" rel="noopener">OPEN POSITION ↗</a>
+                
             </article>
-
-            <a class="view-all" href="https://github.com/vikalp10?tab=repositories" target="_blank" rel="noopener">VIEW ALL →</a>
         </div>
     </section>
 
     <!-- ══════════════════════════════ [5] NEWS WIRE ══════════════════════════ -->
-    <section class="panel" id="p5" data-panel="5" aria-labelledby="p5h">
+    <section class="panel" id="p5" data-panel="5" tabindex="-1" aria-labelledby="p5h">
         <div class="panel-head">
             <span class="p-idx">[5]</span>
             <h2 class="p-title" id="p5h">NEWS WIRE</h2>
@@ -652,7 +761,7 @@
     </section>
 
     <!-- ════════════════════════════ [6] EXECUTE ORDER ════════════════════════ -->
-    <section class="panel panel-exec" id="p6" data-panel="6" aria-labelledby="p6h">
+    <section class="panel panel-exec" id="p6" data-panel="6" tabindex="-1" aria-labelledby="p6h">
         <div class="panel-head">
             <span class="p-idx">[6]</span>
             <h2 class="p-title" id="p6h">EXECUTE ORDER</h2>
@@ -663,7 +772,11 @@
             <p class="exec-line">MARKET IS OPEN. <span class="hl">VKLP</span> IS ACCEPTING
                 OFFERS.</p>
 
-            <a class="cta" href="mailto:vikalp09.shandilya@gmail.com?subject=BUY%20ORDER%3A%20VKLP">▶ PLACE BUY ORDER — HIRE ME</a>
+            <div class="exec-ctas">
+                <a class="cta" href="mailto:vikalp09.shandilya@gmail.com?subject=BUY%20ORDER%3A%20VKLP">▶ PLACE BUY ORDER — HIRE ME</a>
+                <a class="cta cta-ghost" href="./resume.pdf" type="application/pdf" download>DOWNLOAD PROSPECTUS
+                    ↓</a>
+            </div>
 
             <div class="exec-grid">
                 <a class="exec-cell" href="mailto:vikalp09.shandilya@gmail.com">
@@ -672,8 +785,8 @@
                 <a class="exec-cell" href="https://github.com/vikalp10" target="_blank" rel="noopener">
                     <span class="ec-k">GITHUB</span><span class="ec-v">github.com/vikalp10</span>
                 </a>
-                <a class="exec-cell" href="https://linkedin.com/in/vikalp-shandilya" target="_blank" rel="noopener">
-                    <span class="ec-k">LINKEDIN</span><span class="ec-v">in/vikalp-shandilya</span>
+                <a class="exec-cell" href="https://www.linkedin.com/in/vikalp-shandilya-103525198" target="_blank" rel="noopener">
+                    <span class="ec-k">LINKEDIN</span><span class="ec-v">linkedin.com/in/vikalp-shandilya-103525198</span>
                 </a>
             </div>
         </div>
@@ -681,7 +794,7 @@
 
     <footer class="foot">
         <div class="foot-l">© <span>2026</span> <span>Vikalp Shandilya</span>
-            · BUILT WITH CAFFEINE &amp; CONVICTION
+            · RENDERED BY THE APPLICATION IT DESCRIBES
         </div>
         <div class="foot-r">
             <span class="tip">TIP: press <kbd>0</kbd>–<kbd>6</kbd> to jump · <kbd>/</kbd> for commands</span>
@@ -695,7 +808,7 @@
     <a href="#p1" data-jump="1"><b>1</b> INDEX</a>
     <a href="#p2" data-jump="2"><b>2</b> BLOTTER</a>
     <a href="#p3" data-jump="3"><b>3</b> BOOK</a>
-    <a href="#p4" data-jump="4"><b>4</b> HOLDINGS</a>
+    <a href="#p4" data-jump="4"><b>4</b> POSITION</a>
     <a href="#p5" data-jump="5"><b>5</b> NEWS</a>
     <a href="#p6" data-jump="6"><b>6</b> EXECUTE</a>
     <button type="button" id="palette-open" class="fbar-cmd"><b>/</b> CMD</button>

@@ -137,6 +137,9 @@ kbd {
     visibility: hidden;
     transition: opacity .45s ease, visibility 0s .45s;
 }
+/* Set by the inline script in <head> for a visitor who has already seen the sequence,
+   so the overlay never paints. terminal.js then removes it from the document. */
+.booted .boot { display: none; }
 
 .boot-inner { width: min(760px, 100%); }
 
@@ -283,7 +286,9 @@ kbd {
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
-.tape-track { display: flex; white-space: nowrap; animation: marquee 68s linear infinite; }
+/* Duration tracks the number of tape entries (~4.5s each) so the reading speed stays
+   put as metrics are added. 18 entries → 82s. */
+.tape-track { display: flex; white-space: nowrap; animation: marquee 82s linear infinite; }
 .tape-set { flex: 0 0 auto; white-space: nowrap; }
 .tape-item { font-size: 11px; letter-spacing: .1em; padding-right: 4px; }
 .t-k { color: var(--dim); }
@@ -337,6 +342,12 @@ kbd {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 255, 157, .35), transparent);
 }
+/* Panels take tabindex="-1" so the skip link and the 0–6 jumps can move focus, not just
+   the viewport. 1px to match the panel's own border rather than the 2px global ring —
+   a 2px outline around a full-width panel reads as an error state. */
+.panel:focus-visible { outline: 1px solid var(--pg); outline-offset: 2px; }
+.panel:focus:not(:focus-visible) { outline: none; }
+
 .panel.flash { animation: panelflash .7s ease; }
 @keyframes panelflash {
     0% { border-color: var(--pg); box-shadow: 0 0 26px rgba(0, 255, 157, .22) inset; }
@@ -437,6 +448,15 @@ kbd {
     box-shadow: var(--glow);
 }
 
+/* The one link in the row that is an ask, not a reference — lit at rest so it reads
+   first, then falls back into the shared .lnk:hover state. */
+.lnk-dl {
+    color: var(--pg);
+    border-color: var(--pg-dim);
+    background: rgba(0, 255, 157, .07);
+    font-weight: 700;
+}
+
 /* ── [1] Career index ───────────────────────────────────────────────────── */
 
 .chart-wrap { border: 1px solid var(--line); background: #060906; padding: 12px 12px 8px; }
@@ -472,13 +492,15 @@ kbd {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
     gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
 }
 .stat {
     background: var(--panel-2);
     padding: 14px 13px;
     transition: background .2s ease;
+    /* Each card draws its own rule instead of the grid showing through a --line
+       background: the card count rarely divides evenly into the column count, and a
+       part-filled last row should end in page background, not a slab of grid line. */
+    box-shadow: 0 0 0 1px var(--line);
 }
 .stat:hover { background: #111a13; }
 .stat-v {
@@ -494,11 +516,11 @@ kbd {
 
 /* ── [2] Trade blotter ──────────────────────────────────────────────────── */
 
-.blot-cols { display: grid; grid-template-columns: 118px 52px 1fr 1fr 152px; gap: 12px; }
+.blot-cols { display: grid; grid-template-columns: 118px 52px 1fr 1fr 176px; gap: 12px; }
 
 .blot-head {
     display: grid;
-    grid-template-columns: 118px 52px 1fr 1fr 152px;
+    grid-template-columns: 118px 52px 1fr 1fr 176px;
     gap: 12px;
     padding: 0 10px 7px;
     font-size: 9.5px;
@@ -518,7 +540,7 @@ kbd {
 
 .blot-row {
     display: grid;
-    grid-template-columns: 118px 52px 1fr 1fr 152px;
+    grid-template-columns: 118px 52px 1fr 1fr 176px;
     gap: 12px;
     align-items: baseline;
     font-size: 13px;
@@ -658,7 +680,85 @@ kbd {
 .hold-period { margin-left: auto; font-size: 11px; color: var(--dim); }
 
 .hold-name { font-size: 15px; margin: 11px 0 8px; color: var(--txt); letter-spacing: .03em; }
+
+/* Tear-sheet strip: the position's headline numbers, restated from the thesis below it.
+   Deliberately smaller than the [1] stat cards — this supports the position, it does not
+   compete with the career index. */
+.hold-metrics {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 28px;
+    margin: 0 0 15px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+.hold-metrics li {
+    font-size: 10px;
+    letter-spacing: .13em;
+    color: var(--dim);
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+}
+.hold-metrics b {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--pg);
+    font-variant-numeric: tabular-nums;
+    text-shadow: var(--glow);
+}
 .hold-thesis { margin: 0 0 14px; font-size: 12.5px; line-height: 1.72; color: var(--txt-2); max-width: 92ch; }
+
+/* Screenshot / GIF of the position actually running, framed as a terminal window.
+   If the asset is missing the img is swapped for .shot-pending by terminal.js, so an
+   unsupplied capture reads as an empty feed rather than a broken image. */
+.hold-shot {
+    margin: 0 0 16px;
+    border: 1px solid var(--line-2);
+    background: #060906;
+}
+.shot-chrome {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--line-2);
+    background: #070b08;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    color: var(--dim);
+}
+.shot-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+.shot-title { margin-left: 7px; }
+
+.hold-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+}
+/* display:block above outranks the UA rule behind the hidden attribute, so a failed
+   capture would otherwise keep its aspect box in the layout. */
+.hold-shot img[hidden] { display: none; }
+
+.shot-pending {
+    margin: 0;
+    padding: 52px 12px;
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: .2em;
+    color: var(--dim);
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(30, 52, 35, .22) 0 6px,
+            transparent 6px 12px
+        );
+}
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
 .chip {
@@ -669,17 +769,6 @@ kbd {
     background: rgba(77, 226, 255, .05);
     padding: 3px 8px;
 }
-
-.view-all {
-    display: inline-block;
-    margin-top: 16px;
-    font-size: 11.5px;
-    letter-spacing: .16em;
-    color: var(--amber);
-    border-bottom: 1px solid rgba(255, 176, 0, .35);
-    padding-bottom: 2px;
-}
-.view-all:hover { text-shadow: 0 0 10px rgba(255, 176, 0, .5); }
 
 /* ── [5] News wire ──────────────────────────────────────────────────────── */
 
@@ -745,6 +834,21 @@ kbd {
     text-shadow: none;
 }
 .cta:active { transform: translateY(0); }
+
+.exec-ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* Secondary ask: same shape and weight as the CTA, none of its fill, so the buy
+   order stays the loudest thing in the panel. */
+.cta-ghost {
+    background: transparent;
+    color: var(--pg);
+    box-shadow: 0 0 22px rgba(0, 255, 157, .12) inset;
+}
+.cta-ghost:hover {
+    background: rgba(0, 255, 157, .12);
+    color: var(--pg);
+    box-shadow: 0 0 34px rgba(0, 255, 157, .26) inset;
+}
 
 .exec-grid {
     margin: 30px auto 0;
@@ -925,11 +1029,37 @@ kbd {
     .prof-rating { text-align: left; }
     .hud-right { font-size: 10px; gap: 2px 12px; }
     .stats { grid-template-columns: repeat(2, 1fr); }
+    /* An odd card count leaves the last one stranded beside a hole — let it span. */
+    .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
     .stat-v { font-size: 21px; }
     .exec { padding: 26px 10px; }
     .cta { padding: 14px 20px; width: 100%; }
     .foot { flex-direction: column; gap: 8px; }
+    /* "press 0–6 to jump · / for commands" is chrome for keys this viewport rarely has. */
+    .foot-r { display: none; }
     .fbar a, .fbar button { padding: 0 11px; font-size: 9.5px; }
+    /* The bar still scrolls at this width. Fade the trailing edge so it is visibly a
+       scroller rather than a bar that happens to stop at EXECUTE. */
+    .fbar {
+        -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent);
+        mask-image: linear-gradient(90deg, #000 92%, transparent);
+    }
+}
+
+/* Touch, regardless of width: a coarse pointer needs a bigger target than a cursor, and
+   keyboard-shortcut affordances are noise on a device with no keyboard. */
+@media (hover: none) and (pointer: coarse) {
+    :root { --fbar-h: 48px; }
+
+    .lnk {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+    /* The 0–6 prefixes in the function bar are keyboard hints. Dropping them on touch
+       also buys back ~135px of the bar's horizontal overflow. */
+    .fbar a b, .fbar button b { display: none; }
 }
 
 /* ── Motion / print ─────────────────────────────────────────────────────── */

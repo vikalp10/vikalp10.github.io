@@ -17,10 +17,19 @@
     <meta property="og:description"
           content="A trading terminal where the security is a backend engineer. Software Engineer II at JP Morgan Chase — Java, Spring Boot, Kafka, AWS. Market is open.">
     <meta property="og:url" content="https://vikalp10.github.io">
-    <meta name="twitter:card" content="summary">
+    <!-- Absolute, not relative: LinkedIn/Slack/X fetch these server-side with no page context. -->
+    <meta property="og:image" content="https://vikalp10.github.io/og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"
+          content="The VKLP terminal: a phosphor-green trading desk quoting Vikalp Shandilya as a security, rated STRONG BUY.">
+
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" th:content="|${profile.ticker} · ${profile.name}|">
     <meta name="twitter:description"
           content="A trading terminal where the security is a backend engineer. Rated STRONG BUY. Market is open.">
+    <meta name="twitter:image" content="https://vikalp10.github.io/og.png">
 
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://vikalp10.github.io">
@@ -30,6 +39,19 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="./css/terminal.css">
+
+    <!-- The only inline script on the page, and it earns its place: terminal.js is
+         deferred, so by the time it could remove the boot overlay a returning visitor
+         has already been shown a frame of it. Reading the flag here, before first
+         paint, is the difference between "no boot sequence" and "a flash of one".
+         terminal.js owns writing this key. -->
+    <script>
+        try {
+            if (localStorage.getItem('vklp.booted') === '1') {
+                document.documentElement.classList.add('booted');
+            }
+        } catch (e) { /* privacy mode: play the boot sequence, it is not important enough to break on */ }
+    </script>
 </head>
 
 <body>
@@ -39,9 +61,14 @@
 <a class="skip" href="#p0">Skip to content</a>
 
 <!-- ══════════════════════════════════ BOOT ══════════════════════════════════ -->
-<div id="boot" class="boot" role="status" aria-label="Terminal boot sequence">
+<!-- No role="status" here: that made the whole splash an aria-live region, and #boot-log
+     is rewritten ~30x/second while typing, so every frame was announced. The overlay is a
+     decorative curtain that dismisses itself; nothing in it is unavailable underneath. -->
+<div id="boot" class="boot">
     <div class="boot-inner">
-        <pre class="boot-logo" aria-hidden="true">
+        <!-- role="img" matters as much as the label: without it a screen reader spells out
+             the box-drawing characters one by one instead of reading the wordmark. -->
+        <pre class="boot-logo" role="img" aria-label="VKLP">
  ██╗   ██╗██╗  ██╗██╗     ██████╗
  ██║   ██║██║ ██╔╝██║     ██╔══██╗
  ██║   ██║█████╔╝ ██║     ██████╔╝
@@ -109,7 +136,7 @@
     </div>
 
     <!-- ═══════════════════════════ [0] SECURITY PROFILE ══════════════════════ -->
-    <section class="panel" id="p0" data-panel="0" aria-labelledby="p0h">
+    <section class="panel" id="p0" data-panel="0" tabindex="-1" aria-labelledby="p0h">
         <div class="panel-head">
             <span class="p-idx">[0]</span>
             <h2 class="p-title" id="p0h">SECURITY PROFILE</h2>
@@ -150,9 +177,6 @@
                     <div class="kv-row"><dt>STATUS</dt>
                         <dd><span class="status-live" th:text="${profile.status}">HIREABLE</span></dd>
                     </div>
-                    <div class="kv-row"><dt>DSA</dt>
-                        <dd th:text="${profile.leetcode}">500+ SOLVED</dd>
-                    </div>
                 </dl>
 
                 <ul class="certs">
@@ -160,6 +184,8 @@
                 </ul>
 
                 <div class="links">
+                    <a class="lnk lnk-dl" th:href="${profile.resume}" type="application/pdf" download>DOWNLOAD
+                        PROSPECTUS ↓</a>
                     <a class="lnk" th:href="${profile.github}" target="_blank" rel="noopener">GITHUB ↗</a>
                     <a class="lnk" th:href="${profile.linkedin}" target="_blank" rel="noopener">LINKEDIN ↗</a>
                     <a class="lnk" th:href="'mailto:' + ${profile.email}" th:text="${profile.email} + ' ↗'">email</a>
@@ -169,7 +195,7 @@
     </section>
 
     <!-- ═══════════════════════════ [1] CAREER INDEX ══════════════════════════ -->
-    <section class="panel" id="p1" data-panel="1" aria-labelledby="p1h">
+    <section class="panel" id="p1" data-panel="1" tabindex="-1" aria-labelledby="p1h">
         <div class="panel-head">
             <span class="p-idx">[1]</span>
             <h2 class="p-title" id="p1h">CAREER INDEX</h2>
@@ -221,7 +247,7 @@
     </section>
 
     <!-- ═══════════════════════════ [2] TRADE BLOTTER ═════════════════════════ -->
-    <section class="panel" id="p2" data-panel="2" aria-labelledby="p2h">
+    <section class="panel" id="p2" data-panel="2" tabindex="-1" aria-labelledby="p2h">
         <div class="panel-head">
             <span class="p-idx">[2]</span>
             <h2 class="p-title" id="p2h">TRADE BLOTTER</h2>
@@ -252,7 +278,7 @@
     </section>
 
     <!-- ════════════════════════════ [3] ORDER BOOK ═══════════════════════════ -->
-    <section class="panel" id="p3" data-panel="3" aria-labelledby="p3h">
+    <section class="panel" id="p3" data-panel="3" tabindex="-1" aria-labelledby="p3h">
         <div class="panel-head">
             <span class="p-idx">[3]</span>
             <h2 class="p-title" id="p3h">ORDER BOOK</h2>
@@ -301,11 +327,11 @@
     </section>
 
     <!-- ═════════════════════════ [4] PORTFOLIO HOLDINGS ══════════════════════ -->
-    <section class="panel" id="p4" data-panel="4" aria-labelledby="p4h">
+    <section class="panel" id="p4" data-panel="4" tabindex="-1" aria-labelledby="p4h">
         <div class="panel-head">
             <span class="p-idx">[4]</span>
-            <h2 class="p-title" id="p4h">PORTFOLIO HOLDINGS</h2>
-            <span class="p-meta">POSITIONS · MARK-TO-MARKET</span>
+            <h2 class="p-title" id="p4h">CONCENTRATED POSITION</h2>
+            <span class="p-meta">SINGLE NAME · HIGH CONVICTION</span>
         </div>
 
         <div class="panel-body">
@@ -317,19 +343,35 @@
                     <span class="hold-period" th:text="${h.period}">2025–Present</span>
                 </div>
                 <h3 class="hold-name" th:text="${h.name}">KiteTerminal</h3>
+
+                <ul class="hold-metrics" th:if="${h.metrics != null}">
+                    <li th:each="m : ${h.metrics}">
+                        <b th:text="${m.display()}">7</b><span th:text="${m.label}">STRATEGIES</span>
+                    </li>
+                </ul>
+
                 <p class="hold-thesis" th:text="${h.thesis}">thesis</p>
+
+                <figure class="hold-shot" th:if="${h.screenshot != null}">
+                    <div class="shot-chrome" aria-hidden="true">
+                        <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+                        <span class="shot-title" th:text="|${h.ticker} · TERMINAL CAPTURE|">KITE · TERMINAL CAPTURE</span>
+                    </div>
+                    <img th:src="${h.screenshot}" th:alt="${h.shotAlt}" loading="lazy" decoding="async">
+                    <figcaption class="shot-pending" hidden>▮ NO FEED — TERMINAL CAPTURE PENDING</figcaption>
+                </figure>
+
                 <div class="chips">
                     <span class="chip" th:each="t : ${h.tech}" th:text="${t}">PYTHON</span>
                 </div>
-                <a class="lnk" th:href="${h.link}" target="_blank" rel="noopener">OPEN POSITION ↗</a>
+                <a class="lnk" th:if="${h.link != null}" th:href="${h.link}" target="_blank"
+                   rel="noopener">OPEN POSITION ↗</a>
             </article>
-
-            <a class="view-all" th:href="${profile.githubRepos}" target="_blank" rel="noopener">VIEW ALL →</a>
         </div>
     </section>
 
     <!-- ══════════════════════════════ [5] NEWS WIRE ══════════════════════════ -->
-    <section class="panel" id="p5" data-panel="5" aria-labelledby="p5h">
+    <section class="panel" id="p5" data-panel="5" tabindex="-1" aria-labelledby="p5h">
         <div class="panel-head">
             <span class="p-idx">[5]</span>
             <h2 class="p-title" id="p5h">NEWS WIRE</h2>
@@ -348,7 +390,7 @@
     </section>
 
     <!-- ════════════════════════════ [6] EXECUTE ORDER ════════════════════════ -->
-    <section class="panel panel-exec" id="p6" data-panel="6" aria-labelledby="p6h">
+    <section class="panel panel-exec" id="p6" data-panel="6" tabindex="-1" aria-labelledby="p6h">
         <div class="panel-head">
             <span class="p-idx">[6]</span>
             <h2 class="p-title" id="p6h">EXECUTE ORDER</h2>
@@ -359,17 +401,23 @@
             <p class="exec-line">MARKET IS OPEN. <span class="hl" th:text="${profile.ticker}">VKLP</span> IS ACCEPTING
                 OFFERS.</p>
 
-            <a class="cta" th:href="${profile.buyOrderMailto()}">▶ PLACE BUY ORDER — HIRE ME</a>
+            <div class="exec-ctas">
+                <a class="cta" th:href="${profile.buyOrderMailto()}">▶ PLACE BUY ORDER — HIRE ME</a>
+                <a class="cta cta-ghost" th:href="${profile.resume}" type="application/pdf" download>DOWNLOAD PROSPECTUS
+                    ↓</a>
+            </div>
 
             <div class="exec-grid">
                 <a class="exec-cell" th:href="'mailto:' + ${profile.email}">
                     <span class="ec-k">EMAIL</span><span class="ec-v" th:text="${profile.email}">email</span>
                 </a>
                 <a class="exec-cell" th:href="${profile.github}" target="_blank" rel="noopener">
-                    <span class="ec-k">GITHUB</span><span class="ec-v">github.com/vikalp10</span>
+                    <span class="ec-k">GITHUB</span><span class="ec-v"
+                                                           th:text="${profile.githubHandle()}">github.com/vikalp10</span>
                 </a>
                 <a class="exec-cell" th:href="${profile.linkedin}" target="_blank" rel="noopener">
-                    <span class="ec-k">LINKEDIN</span><span class="ec-v">in/vikalp-shandilya</span>
+                    <span class="ec-k">LINKEDIN</span><span class="ec-v"
+                                                             th:text="${profile.linkedinHandle()}">linkedin.com/in/vikalp-shandilya</span>
                 </a>
             </div>
         </div>
@@ -377,7 +425,7 @@
 
     <footer class="foot">
         <div class="foot-l">© <span th:text="${buildYear}">2026</span> <span th:text="${profile.name}">Vikalp Shandilya</span>
-            · BUILT WITH CAFFEINE &amp; CONVICTION
+            · RENDERED BY THE APPLICATION IT DESCRIBES
         </div>
         <div class="foot-r">
             <span class="tip">TIP: press <kbd>0</kbd>–<kbd>6</kbd> to jump · <kbd>/</kbd> for commands</span>
@@ -391,7 +439,7 @@
     <a href="#p1" data-jump="1"><b>1</b> INDEX</a>
     <a href="#p2" data-jump="2"><b>2</b> BLOTTER</a>
     <a href="#p3" data-jump="3"><b>3</b> BOOK</a>
-    <a href="#p4" data-jump="4"><b>4</b> HOLDINGS</a>
+    <a href="#p4" data-jump="4"><b>4</b> POSITION</a>
     <a href="#p5" data-jump="5"><b>5</b> NEWS</a>
     <a href="#p6" data-jump="6"><b>6</b> EXECUTE</a>
     <button type="button" id="palette-open" class="fbar-cmd"><b>/</b> CMD</button>

@@ -48,7 +48,13 @@ public class StaticSiteExporter implements CommandLineRunner {
             "css/terminal.css",
             "js/terminal.js",
             "favicon.svg",
-            "robots.txt"
+            "robots.txt",
+            // Author-supplied binaries. Each is optional: a missing one logs a warning and
+            // the page degrades (dead download link / no link preview image / "capture
+            // pending" frame) rather than failing the build.
+            "resume.pdf",
+            "og.png",
+            "img/kite-terminal.png"
     );
 
     private final PortfolioData data;

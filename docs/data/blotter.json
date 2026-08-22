@@ -1,9 +1,17 @@
 [ {
-  "period" : "JUL'23—NOW",
+  "period" : "JAN'26—NOW",
   "side" : "BUY",
   "desk" : "JP MORGAN CHASE",
   "role" : "Software Engineer II",
-  "fills" : [ "Leading an automated feed-onboarding platform — pulls feed specs straight from Jira, bounces incomplete requests back to product owners with the exact missing fields, then runs onboarding end to end (Java entity generation → DB table creation → ticket close) through a configurable self-service UI", "Building its monitoring layer: consumers register a data contract, the system scans feeds, reads the logs of failing ones, explains root cause and hands the on-call a recommended action plan without ever touching prod data — SLA-breach risk raises an incident and alerts consumers automatically", "Zero-downtime MySQL→PostgreSQL migration: 50+ tables, 2TB+, 5 teams, dual-write plus shadow-read — $120K/yr saved, 40% faster queries, adopted as the org-wide playbook", "MCP server (JPMC hackathon) where LLM agents vet datasets against configurable data-quality templates and raise rule alerts — running in production with the Data Quality team, replacing manual review", "Self-improving AI agent (3 skills, Moderne CLI) for Spring Boot 2.x→4.x upgrades — 120+ vulnerabilities remediated across 22 repositories", "Python/Java ETL framework at 500K+ records/day (8GB, peaking at 200 rec/sec) across 15+ vendors — onboarding cut from 7 days to 1 (85%), serving 3 teams on AWS Step Functions (Lambda / Glue / S3) at a 99.9% SLA", "Event-driven Spring Boot + Kafka backbone — 8 topics, 3 consumer groups, 50K+ events/day, 35% lower API latency", "Multi-account AWS provisioned with Terraform, plus Spinnaker blue-green CI/CD adopted across 4 teams", "15+ production incidents resolved; the runbooks that came out of them cut recurrence 50%" ],
+  "fills" : [ "Self-service feed-onboarding platform: pulls the spec straight from a Jira ticket, generates the Java entity, creates the DB table and closes the ticket — incomplete requests are auto-returned to the requester with the exact missing fields. Feed onboarding cut from 3 days to under 6 hours across 200+ feeds", "Contract-based monitoring layer covering 20 feeds for 4 major trading consumers — scans registered datasets, parses failure logs, surfaces root cause with a recommended action, and escalates SLA-breach risk to consumers. On-call triage cut from 2 hours to 15 minutes", "Agentic tooling in production: an MCP server (JPMC hackathon) where LLM agents vet datasets against configurable data-quality templates, adopted by the Data Quality team to replace manual review — plus a self-improving agent (3 skills, Moderne CLI) driving Spring Boot 2.x→4.x migration, remediating 120+ vulnerabilities across 22 repositories", "Weekly on-call rotation for the platform; onboarded and mentored 2 engineers — an intern and an experienced joiner — on the team's codebase, delivery process and AWS infrastructure" ],
+  "pnl" : "3 DAYS → 6 HRS",
+  "direction" : "UP"
+}, {
+  "period" : "JUL'23—DEC'25",
+  "side" : "BUY",
+  "desk" : "JP MORGAN CHASE",
+  "role" : "Software Engineer",
+  "fills" : [ "Zero-downtime MySQL→PostgreSQL migration: 50+ tables, 2TB+, 5 teams, dual-write plus shadow-read — $120K/yr saved, 40% faster queries, adopted as the org-wide playbook", "Python/Java ETL framework at 500K+ records/day (8GB, peaking at 200 rec/sec) across 15+ vendors — onboarding cut from 7 days to 1 (85%), serving 3 teams on AWS Step Functions (Lambda / Glue / S3) at a 99.9% SLA", "Event-driven Spring Boot + Kafka backbone — 8 topics, 3 consumer groups, 50K+ events/day, 35% lower API latency", "Multi-account AWS provisioned with Terraform, plus Spinnaker blue-green CI/CD adopted across 4 teams", "15+ production incidents resolved; the runbooks that came out of them cut recurrence 50%" ],
   "pnl" : "+$120K SAVED",
   "direction" : "UP"
 }, {
@@ -12,7 +20,7 @@
   "desk" : "JP MORGAN CHASE",
   "role" : "SEP Intern",
   "fills" : [ "Led the Java 8→17 migration across 12 microservices — 30% less boilerplate, 25% faster startup, and 3 deprecated security libraries flagged in compliance removed", "Python automation to reconcile vendor file backlogs — 80% less manual reconciliation" ],
-  "pnl" : "−25% STARTUP",
+  "pnl" : "▼25% STARTUP TIME",
   "direction" : "UP"
 }, {
   "period" : "JUN'22—JUL'22",
@@ -20,7 +28,7 @@
   "desk" : "JP MORGAN CHASE",
   "role" : "Summer Analyst Intern",
   "fills" : [ "Full-stack maker-checker application (Spring Boot + Angular) with a dual-authorization workflow, REST APIs and Swagger documentation", "Integration time down 50%, 85% test coverage" ],
-  "pnl" : "−50% INTEGRATION",
+  "pnl" : "▼50% INTEGRATION TIME",
   "direction" : "UP"
 }, {
   "period" : "2019—2023",

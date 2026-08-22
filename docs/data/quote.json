@@ -49,7 +49,7 @@
     "value" : 85.0,
     "decimals" : 0,
     "suffix" : "%",
-    "note" : "7 days → 1 day"
+    "note" : "vendor feeds: 7 days → 1 day"
   }, {
     "label" : "VULNS REMEDIATED",
     "prefix" : "",
@@ -64,5 +64,33 @@
     "decimals" : 0,
     "suffix" : "%",
     "note" : "Kafka event-driven redesign"
+  }, {
+    "label" : "FEEDS ONBOARDED",
+    "prefix" : "",
+    "value" : 200.0,
+    "decimals" : 0,
+    "suffix" : "+",
+    "note" : "self-service onboarding platform"
+  }, {
+    "label" : "FEED ONBOARDING",
+    "prefix" : "3D → ",
+    "value" : 6.0,
+    "decimals" : 0,
+    "suffix" : "H",
+    "note" : "3 days → under 6 hours"
+  }, {
+    "label" : "ON-CALL TRIAGE",
+    "prefix" : "2H → ",
+    "value" : 15.0,
+    "decimals" : 0,
+    "suffix" : "M",
+    "note" : "contract-based monitoring layer"
+  }, {
+    "label" : "ENGINEERS MENTORED",
+    "prefix" : "",
+    "value" : 2.0,
+    "decimals" : 0,
+    "suffix" : "",
+    "note" : "1 intern · 1 experienced joiner"
   } ]
 }

@@ -4,7 +4,38 @@
   "tag" : "QUANT",
   "name" : "KiteTerminal — Algorithmic Trading Terminal",
   "period" : "2025–Present",
+  "metrics" : [ {
+    "label" : "STRATEGIES",
+    "prefix" : "",
+    "value" : 7.0,
+    "decimals" : 0,
+    "suffix" : "",
+    "note" : ""
+  }, {
+    "label" : "STOCK UNIVERSE",
+    "prefix" : "",
+    "value" : 500.0,
+    "decimals" : 0,
+    "suffix" : "",
+    "note" : ""
+  }, {
+    "label" : "DESKS · INTRADAY / SWING / F&O",
+    "prefix" : "",
+    "value" : 3.0,
+    "decimals" : 0,
+    "suffix" : "",
+    "note" : ""
+  }, {
+    "label" : "LOOK-AHEAD BIAS",
+    "prefix" : "",
+    "value" : 0.0,
+    "decimals" : 0,
+    "suffix" : "",
+    "note" : ""
+  } ],
   "thesis" : "Full-stack trading terminal built on the Zerodha Kite Connect REST and WebSocket APIs, with separate intraday, swing and F&O sections and a paper-trading switch that routes simulated and live orders down one auditable path. Runs 7 strategies across equity and index options: swing entries screen a 500-stock universe behind pattern, fundamental and relative-strength gates, while F&O trades multi-leg structures with delta-based strike selection — all validated on a no-look-ahead backtester that models real brokerage costs and slippage.",
   "tech" : [ "PYTHON", "FASTAPI", "NEXT.JS", "TYPESCRIPT", "TAURI" ],
-  "link" : "https://github.com/vikalp10"
+  "link" : null,
+  "screenshot" : "./img/kite-terminal.png",
+  "shotAlt" : "KiteTerminal running — intraday, swing and F&O sections with live positions and the paper-trading switch"
 } ]
